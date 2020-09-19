@@ -1,5 +1,11 @@
 # Calendar
 
+## ENV Setup
+```bash
+# input calendar-api endpoint
+CALENDAR_API=
+```
+
 ## Build Setup
 
 ```bash
@@ -16,5 +22,3 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
