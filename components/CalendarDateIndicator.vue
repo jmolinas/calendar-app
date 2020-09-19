@@ -3,18 +3,14 @@
 </template>
 
 <script>
-export default {
-  props: {
-    selectedDate: {
-      type: Object,
-      required: true,
-    },
-  },
+import { mapActions, mapMutations, mapGetters, mapState } from "vuex";
 
+export default {
   computed: {
     selectedMonth() {
       return this.selectedDate.format("MMMM YYYY");
     },
+    ...mapState('events', ['selectedDate']),
   },
 };
 </script>

@@ -60,6 +60,7 @@ export default {
   methods: {
     ...mapMutations({
       error: "alert/SET_ERROR",
+      setDate: "events/SET_DATE",
     }),
     ...mapActions({
       getEvents: "events/fetch",
@@ -75,6 +76,7 @@ export default {
       try {
         const data = calendar.schedule(title, description, start, end, days);
         await new Event(data).save();
+        this.setDate(start);
         await this.getEvents();
         this.error(null);
         this.resetValues();

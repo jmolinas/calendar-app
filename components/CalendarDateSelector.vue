@@ -13,18 +13,6 @@ import { mapActions, mapMutations, mapGetters, mapState } from "vuex";
 export default {
   name: "CalendarModeSelector",
 
-  props: {
-    currentDate: {
-      type: String,
-      required: true,
-    },
-
-    selectedDate: {
-      type: Object,
-      required: true,
-    },
-  },
-
   methods: {
     ...mapActions({
       getEvents: "events/fetch",
@@ -33,24 +21,18 @@ export default {
       nextDate: "events/nextDate",
     }),
     async selectPrevious() {
-      let newSelectedDate = dayjs(this.selectedDate).subtract(1, "month");
       this.prevDate();
       await this.getEvents();
-      this.$emit("dateSelected", newSelectedDate);
     },
 
     async selectCurrent() {
-      let newSelectedDate = dayjs(this.currentDate);
       this.curDate();
       await this.getEvents();
-      this.$emit("dateSelected", newSelectedDate);
     },
 
     async selectNext() {
-      let newSelectedDate = dayjs(this.selectedDate).add(1, "month");
       this.nextDate();
       await this.getEvents();
-      this.$emit("dateSelected", newSelectedDate);
     },
   },
 };

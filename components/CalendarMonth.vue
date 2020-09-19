@@ -1,16 +1,9 @@
 <template>
   <div class="calendar-month">
     <div class="calendar-month-header">
-      <CalendarDateIndicator
-        :selected-date="selectedDate"
-        class="calendar-month-header-selected-month"
-      />
+      <CalendarDateIndicator class="calendar-month-header-selected-month" />
 
-      <CalendarDateSelector
-        :current-date="today"
-        :selected-date="selectedDate"
-        @dateSelected="selectDate"
-      />
+      <CalendarDateSelector/>
     </div>
 
     <ol class="days-grid list-group list-group list-group-flush">
@@ -45,13 +38,9 @@ export default {
     CalendarDateSelector,
   },
 
-  data() {
-    return {
-      selectedDate: dayjs(),
-    };
-  },
-
   computed: {
+    ...mapState("events", ["selectedDate"]),
+
     days() {
       return [...this.currentMonthDays];
     },
