@@ -28,6 +28,17 @@ export const actions = {
     } catch (error) {
 
     }
+  },
+  prevDate({ commit, state }) {
+    const date = state.selectedDate.subtract(1, "month")
+    commit('SET_DATE', date);
+  },
+  currentDate({ commit }) {
+    commit('SET_DATE', dayjs());
+  },
+  nextDate({ commit, state }) {
+    const date = state.selectedDate.add(1, "month")
+    commit('SET_DATE', date);
   }
 };
 

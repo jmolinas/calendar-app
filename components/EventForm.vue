@@ -23,7 +23,7 @@
 <script>
 import calendar from "~/services/Calendar";
 import Event from "~/models/Events";
-import { mapMutations } from "vuex";
+import { mapActions, mapMutations, mapGetters, mapState } from "vuex";
 import dayjs from "dayjs";
 
 export default {
@@ -59,7 +59,10 @@ export default {
   },
   methods: {
     ...mapMutations({
-      SET_ERROR: "alert/SET_ERROR",
+      error: "alert/SET_ERROR",
+    }),
+    ...mapActions({
+      getEvents: "events/fetch",
     }),
     async handleSubmit() {
       const { title, description, start, end, days } = this.event;
@@ -72,10 +75,11 @@ export default {
       try {
         const data = calendar.schedule(title, description, start, end, days);
         await new Event(data).save();
-        this.SET_ERROR(null);
+        await this.getEvents();
+        this.error(null);
         this.resetValues();
       } catch (error) {
-        this.SET_ERROR({ message: "Date Range Required" });
+        console.log(error);
       }
     },
     selectColor(color) {

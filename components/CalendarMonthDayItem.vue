@@ -8,7 +8,6 @@
     }"
   >
     <span>{{ label }} {{ dayName }}</span>
-    {{ events }}
     <ul v-if="events.length > 0" id="schedule_days">
       <li v-for="(item, index) in events" :key="index">{{ item.relationships.event.title }}</li>
     </ul>
@@ -37,9 +36,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    event: {
-      type: Array,
-    },
   },
 
   computed: {
@@ -49,18 +45,17 @@ export default {
     dayName() {
       return dayjs(this.day.date).format("ddd");
     },
+    ...mapState("events", ["dates"]),
     events: function () {
-      const events = this.event.reduce((init, element) => {
+      const events = this.dates.reduce((init, element) => {
         // console.log(element.attributes.date, dayjs(this.day.date).format("YYYY-MM-DD"))
         if (
           element.attributes.date == dayjs(this.day.date).format("YYYY-MM-DD")
         ) {
-
-          return init.push(element);
+          init.push(element);
         }
         return init;
       }, []);
-      console.log(events)
       return events;
     },
   },

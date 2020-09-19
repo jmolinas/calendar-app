@@ -19,7 +19,6 @@
         :key="day.date"
         :day="day"
         :is-today="day.date === today"
-        :event="event"
       />
     </ol>
   </div>
@@ -49,7 +48,6 @@ export default {
   data() {
     return {
       selectedDate: dayjs(),
-      event: []
     };
   },
 
@@ -84,8 +82,6 @@ export default {
       });
       return days;
     },
-
-    ...mapState("events", ["dates"]),
   },
 
   methods: {
@@ -101,9 +97,8 @@ export default {
       getEvents: "events/fetch",
     }),
   },
-  async created() {
+  async mounted() {
     await this.getEvents();
-    this.event = this.dates;
   },
 };
 </script>

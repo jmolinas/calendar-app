@@ -8,6 +8,7 @@
 
 <script>
 import dayjs from "dayjs";
+import { mapActions, mapMutations, mapGetters, mapState } from "vuex";
 
 export default {
   name: "CalendarModeSelector",
@@ -15,31 +16,43 @@ export default {
   props: {
     currentDate: {
       type: String,
-      required: true
+      required: true,
     },
 
     selectedDate: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   methods: {
-    selectPrevious() {
+    ...mapActions({
+      getEvents: "events/fetch",
+      prevDate: "events/prevDate",
+      curDate: "events/currentDate",
+      nextDate: "events/nextDate",
+    }),
+    async selectPrevious() {
       let newSelectedDate = dayjs(this.selectedDate).subtract(1, "month");
+      this.prevDate();
+      await this.getEvents();
       this.$emit("dateSelected", newSelectedDate);
     },
 
-    selectCurrent() {
+    async selectCurrent() {
       let newSelectedDate = dayjs(this.currentDate);
+      this.curDate();
+      await this.getEvents();
       this.$emit("dateSelected", newSelectedDate);
     },
 
-    selectNext() {
+    async selectNext() {
       let newSelectedDate = dayjs(this.selectedDate).add(1, "month");
+      this.nextDate();
+      await this.getEvents();
       this.$emit("dateSelected", newSelectedDate);
-    }
-  }
+    },
+  },
 };
 </script>
 
