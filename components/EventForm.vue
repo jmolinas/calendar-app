@@ -1,20 +1,41 @@
 <template>
   <b-form @submit.prevent="handleSubmit">
     <b-form-group class="input-holder">
-      <b-form-input type="text" placeholder="Event title" v-model="event.title" />
+      <b-form-input
+        type="text"
+        placeholder="Event title"
+        v-model="event.title"
+      />
     </b-form-group>
     <b-form-group class="input-holder">
-      <b-form-datepicker :placeholder="'Start date'" v-model="event.start" :state="isValid" />
+      <b-form-datepicker
+        :placeholder="'Start date'"
+        v-model="event.start"
+        :state="isValid"
+      />
     </b-form-group>
     <b-form-group class="input-holder">
-      <b-form-datepicker :placeholder="'End date'" v-model="event.end" :state="isValid" />
+      <b-form-datepicker
+        :placeholder="'End date'"
+        v-model="event.end"
+        :state="isValid"
+      />
     </b-form-group>
     <b-form-group class="input-holder">
-      <b-form-textarea placeholder="Event description" rows="4" v-model="event.description"></b-form-textarea>
+      <b-form-textarea
+        placeholder="Event description"
+        rows="4"
+        v-model="event.description"
+      ></b-form-textarea>
     </b-form-group>
     <b-form-group id="schedule_days">
       <b-form-checkbox-group v-model="event.days" id="checkboxes-4">
-        <b-form-checkbox v-for="(item, index) in dayNames" :key="index" :value="item">{{ item }}</b-form-checkbox>
+        <b-form-checkbox
+          v-for="(item, index) in dayNames"
+          :key="index"
+          :value="item"
+          >{{ item }}</b-form-checkbox
+        >
       </b-form-checkbox-group>
     </b-form-group>
     <b-button type="submit" variant="primary">Schedule</b-button>

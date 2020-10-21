@@ -1,0 +1,73 @@
+body#LoginPage {
+  background-color: #585fa6;
+  height: 100%;
+  #__nuxt,
+  #__layout,
+  .wrapper {
+    height: 100%;
+  }
+  h1 {
+    color: $tfff;
+    @include font-size(24);
+    @extend .questrial;
+  }
+  section#LoginPage {
+    margin: rem(25) 0 0;
+    width: 100%;
+    .LoginWrap {
+      flex: 0 0 348px;
+      background-color: $bgFFF;
+      min-height: 298px;
+      padding: rem(25);
+      width: 100%;
+      .fields {
+        margin: rem(15) 0 0;
+        @extend .questrial;
+        input[type='text'],
+        input[type='password'] {
+          width: 100%;
+          height: 34px;
+          border: 1px solid $bgeae8e7;
+          margin: rem(12) 0 0;
+          padding: 0 0 0 rem(15);
+          outline: 0;
+        }
+        span.label {
+          @include font-size(13);
+          color: $t343030;
+        }
+        input[type='submit'],a.login {
+          background-color: $bg2aa835;
+          color: $tfff;
+          @include font-size(13);
+          outline: 0;
+          border: 0;
+          width: 100%;
+          height: 35px;
+          cursor: pointer;
+        }
+
+        .remember {
+          flex: 0 0 110px;
+          span.util {
+            @include font-size(13);
+            color: $tc9c4c1;
+          }
+          input[type='checkbox'] {
+            width: 12px;
+            height: 12px;
+            outline: 0;
+            border: 1px solid $bgeae8e7;
+          }
+        }
+        .forgot {
+          flex: 1;
+          a {
+            @include font-size(13);
+            color: $tc9c4c1;
+          }
+        }
+      }
+    }
+  }
+}

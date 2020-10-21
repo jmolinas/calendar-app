@@ -4,7 +4,7 @@ export default {
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
   */
-  mode: 'spa',
+  ssr: false,
   /*
   ** Nuxt target
   ** See https://nuxtjs.org/api/configuration-target
@@ -29,6 +29,7 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/scss/main.scss'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -58,12 +59,47 @@ export default {
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
     '@nuxtjs/dotenv',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: process.env.CALENDAR_API + '/api/v1/auth/login',
+            method: 'post',
+            propertyName: 'access_token'
+          },
+          logout: {
+            url: process.env.CALENDAR_API + '/api/v1/auth/logout',
+            method: 'post'
+          },
+          user: {
+            url: process.env.CALENDAR_API + '/api/v1/user',
+            method: 'get',
+            propertyName: 'user'
+          }
+        },
+        tokenRequired: true,
+        globalToken: true,
+        tokenName: 'Authorization',
+        redirect: {
+          login: '/login',
+          home: 'false',
+          logout: '/login'
+        }
+      }
+    }
+  },
+  router: {
+    middleware: ['auth'],
+    linkActiveClass: 'active'
   }
 }

@@ -1,19 +1,22 @@
 <template>
-  <div class="calendar-month">
-    <div class="calendar-month-header">
-      <CalendarDateIndicator class="calendar-month-header-selected-month" />
+  <div>
+    <div class="menu"><span @click="doLogout">Logout</span></div>
+    <div class="calendar-month">
+      <div class="calendar-month-header">
+        <CalendarDateIndicator class="calendar-month-header-selected-month" />
 
-      <CalendarDateSelector/>
+        <CalendarDateSelector />
+      </div>
+
+      <ol class="days-grid list-group list-group list-group-flush">
+        <CalendarMonthDayItem
+          v-for="day in days"
+          :key="day.date"
+          :day="day"
+          :is-today="day.date === today"
+        />
+      </ol>
     </div>
-
-    <ol class="days-grid list-group list-group list-group-flush">
-      <CalendarMonthDayItem
-        v-for="day in days"
-        :key="day.date"
-        :day="day"
-        :is-today="day.date === today"
-      />
-    </ol>
   </div>
 </template>
 
@@ -74,6 +77,15 @@ export default {
   },
 
   methods: {
+    async doLogout() {
+      await this.$auth.logout();
+      this.$router.push('/login');
+      this.$store.commit(
+        "alert/SET_INFO",
+        "You have been logged out successfully"
+      );
+    },
+
     getWeekday(date) {
       return dayjs(date).weekday();
     },
@@ -105,5 +117,9 @@ export default {
   background-color: #fff;
   padding-bottom: 5px;
   padding-top: 10px;
+}
+
+.menu {
+  text-align: right;
 }
 </style>
